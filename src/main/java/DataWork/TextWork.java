@@ -6,10 +6,11 @@ import Interfaces.InputInterface;
 import Interfaces.PalindromeInterface;
 import Interfaces.CreateSaveIntoFileInterface;
 import Interfaces.ReadDatafromFileInterface;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.io.*;
 import java.util.Scanner;
+
+import static Base.Text.SEPARATOR;
 
 
 public class TextWork implements InputInterface, CreateSaveIntoFileInterface, PalindromeInterface, ReadDatafromFileInterface {
@@ -18,72 +19,72 @@ public class TextWork implements InputInterface, CreateSaveIntoFileInterface, Pa
     DataFile workFile = new DataFile();
 
     FileWriter writeText;
-    FileReader readText;
 
     Scanner scan = new Scanner(System.in);
 
     @Override
-    synchronized public void createFile() throws IOException {
-        //File baseFile = new File ("d:\\Palindrome.txt");
+    public void createFile() throws IOException {
+
         workFile.setDataFile(new File("d:\\Palindrome.txt"));
 
         writeText = new FileWriter(workFile.getDataFile(), true);
-
         writeText.write("This is a text File.\n ");
-
         writeText.close();
-
-//        BufferedReader reader = new BufferedReader(new FileReader(workFile.getDataFile()));
-//
-//        while (reader.readLine() != null)
-//            System.out.println(reader.readLine());
 
     }
 
     @Override
-    synchronized public void typeData() {
+    public void typeData() {
         System.out.print("Введите данные: ");
         String text = scan.nextLine();
         workText.setTextData(text);
     }
 
     @Override
-    synchronized public void checkIfPalindrome() {
+    public Boolean checkIfPalindrome() {
+
+        Boolean result = false;
 
         String newText = workText.getTextData();
         StringBuffer textField = new StringBuffer(newText.subSequence(0, newText.length()));
 
-        if (textField.equals(textField.reverse())) {
-            workText.setTextData(textField.toString().toUpperCase());
-            System.out.println(workText.getTextData());
+        String a = textField.toString();
+        String b = textField.reverse().toString();
+
+        if (a.compareTo(b) == 0) {
+            workText.setTextPalindrome(textField.toString().toUpperCase());
+            System.out.println("Сохраняем в файл палиндром: " + workText.getTextPalindrome());
+            result = true;
+        } else {
+            System.out.println("Введенное слово - не палиндром. ");
         }
 
+        return result;
     }
 
 
     @Override
-    synchronized public void saveData() throws IOException {
+    public void saveData() throws IOException {
 
         FileWriter writeNewText = new FileWriter(workFile.getDataFile(), true);
 
-        writeNewText.write(workText.getTextData());
+        writeNewText.write(SEPARATOR + workText.getTextPalindrome() + ". ");
         writeNewText.close();
+
         System.out.println(" ");
 
     }
 
     @Override
-    synchronized public void readData() throws IOException {
-
-//        readText = new FileReader(workFile.getDataFile());
-
+    public void readData() throws IOException {
 
         BufferedReader reader = new BufferedReader(new FileReader(workFile.getDataFile()));
 
-//        while (reader.readLine() != null)
-            System.out.println("Вывод итогового текста: " + reader.readLine());
+        System.out.println("Вывод текста с файла " + workFile.getDataFile() + " : ");
+        while (reader.ready())
+            System.out.println(reader.readLine());
 
-//        System.out.println("Вывод итогового текста: " + workText.getTextData());
+        reader.close();
 
     }
 

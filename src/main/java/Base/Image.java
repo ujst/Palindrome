@@ -1,8 +1,5 @@
 package Base;
 
-/**
- * Created by VV on 01.02.2017.
- */
 public class Image {
     private String imageData;
 

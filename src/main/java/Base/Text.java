@@ -1,9 +1,9 @@
 package Base;
 
-/**
- * Created by VV on 01.02.2017.
- */
 public class Text {
+    public static final int CONSTANT = 1000;
+
+    public static final String SEPARATOR = "\r\n";
 
     private String textData;
 
@@ -15,14 +15,14 @@ public class Text {
         this.textData = words;
     }
 
+    private String textPalindrome;
 
-    private String textUppercase;
 
-    public String getTextUppercase() {
-        return textUppercase;
+    public String getTextPalindrome() {
+        return textPalindrome;
     }
 
-    public void setTextUppercase(String textUppercase) {
-        this.textUppercase = textUppercase;
+    public void setTextPalindrome(String textPalindrome) {
+        this.textPalindrome = textPalindrome;
     }
 }

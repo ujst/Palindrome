@@ -1,21 +1,23 @@
-package Implementation; /**
- * Created by VV on 18.12.2016.
- */
+package Implementation;
 
-import Interfaces.InputInterface;
 import DataWork.TextWork;
-
 import java.io.IOException;
+import static Base.Text.CONSTANT;
 
 class PalindromeFile {
+
     public static void main(String[] args) throws IOException {
         TextWork data = new TextWork();
+
         data.createFile();
-        data.typeData();
-        data.checkIfPalindrome();
+
+        for (int i = 1; i < CONSTANT; i++) {
+            data.typeData();
+            if(data.checkIfPalindrome())
+                break;
+        }
+
         data.saveData();
         data.readData();
-
     }
-
 }
